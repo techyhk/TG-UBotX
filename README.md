@@ -1,15 +1,34 @@
-<h1 align="center">Project Paperplane Extended</h1>
-<h3 align="center">A modular Telegram userbot running on Python 3.6+ with an sqlalchemy database.</h3>
-<h4 align="center">Based on RaphielGang's <a href="https://github.com/MyPaperPlane/Telegram-UserBot">Paperplane</a> Telegram userbot...</h4>
-<h4 align="center">...or rather, it's Paperplane + insane extras from the community.</h4>
-<p align="center"><a href="#how-to-host">How To Host</a> | <a href="#credits">Credits</a> | <a href="#license">License</a></p>
-<p align="center">&nbsp;</p>
-<h2 align="center">How To Host</h2>
-<h5 align="center">The easiest way to deploy this derpfest!</h5>
-<p align="center"><a href="https://heroku.com/deploy"> <img src="https://www.herokucdn.com/deploy/button.svg" alt="Deploy to Heroku" /></a></p>
-<p align="center">&nbsp;</p>
-<h2 align="center">Credits</h2>
-<p align="center">Huge thanks to <a href="https://github.com/AvinashReddy3108/PaperplaneExtended/graphs/contributors">everyone</a> who have helped make this userbot awesome!!</p>
-<p align="center">&nbsp;</p>
-<h2 align="center">License</h2>
-<p align="center"><a href="https://github.com/AvinashReddy3108/PaperplaneExtended/blob/master/LICENSE">Raphielscape Public License</a> - Version 1.c, June 2019</p>
+# UBotX - Telegram UserBot
+
+```
+#include <std/disclaimer.h>
+/**
+    Your Telegram account may get banned.
+    I am not responsible for any improper use of this bot
+    This bot is intended for the purpose of having fun with memes,
+    as well as efficiently managing groups.
+    You ended up spamming groups, getting reported left and right,
+    and you ended up in a Finale Battle with Telegram and at the end
+    Telegram Team deleted your account?
+    And after that, then you pointed your fingers at us
+    for getting your acoount deleted?
+    I will be rolling on the floor laughing at you.
+/**
+```
+
+## Disclaimer
+
+First of all you should know this bot is a major work in progress. It is a fork of [Paperplane Extended](https://github.com/AvinashReddy3108/PaperplaneExtended), If you choose to use this bot now, be prepared to pull changes frequently as I continue to fix broken english, pull or change things that don't make sense, or add new things.
+
+## Heroku Deploy
+
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/TG-UBotX/TG-UBotX)
+
+## Credits
+
+* [Paperlane Extended](https://github.com/AvinashReddy3108/PaperplaneExtended)
+* [Paperplane](https://github.com/RaphielGang/Telegram-UserBot)
+* [tg_userbot](https://github.com/watzon/tg_userbot)
+* [OpenUserBot](https://github.com/mkaraniya/OpenUserBot)
+
+You can also find credits inside the files in case you see any module without the proper credits call me on Telegram @HitaloSama

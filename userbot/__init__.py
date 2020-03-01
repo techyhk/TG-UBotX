@@ -1,6 +1,6 @@
 # Copyright (C) 2019 The Raphielscape Company LLC.
 #
-# Licensed under the Raphielscape Public License, Version 1.c (the "License");
+# Licensed under the Raphielscape Public License, Version 1.d (the "License");
 # you may not use this file except in compliance with the License.
 #
 """ Userbot initialization. """
@@ -13,10 +13,14 @@ from distutils.util import strtobool as sb
 
 from pylast import LastFMNetwork, md5
 from pySmartDL import SmartDL
+from github import Github
+from spamwatch import Client as SpamWatch
 from dotenv import load_dotenv
 from requests import get
 from telethon import TelegramClient
 from telethon.sessions import StringSession
+
+from userbot.client import UserBot
 
 load_dotenv("config.env")
 
@@ -33,9 +37,9 @@ else:
                 level=INFO)
 LOGS = getLogger(__name__)
 
-if version_info[0] < 3 or version_info[1] < 6:
-    LOGS.info("You MUST have a python version of at least 3.6."
-              "Multiple features depend on this. Bot quitting.")
+if version_info < (3, 6, 0):
+    LOGS.error("You MUST have a python version of at least 3.6."
+               " Multiple features depend on this. Bot quitting.")
     quit(1)
 
 # Check if the config was edited by using the already used variable.
@@ -66,6 +70,14 @@ LOGSPAMMER = sb(os.environ.get("LOGSPAMMER", "False"))
 # Bleep Blop, this is a bot ;)
 PM_AUTO_BAN = sb(os.environ.get("PM_AUTO_BAN", "False"))
 
+# GitHub Repos Module
+GITHUB_USERNAME = os.environ.get("GITHUB_USERNAME", None)
+GITHUB_PASSWORD = os.environ.get("GITHUB_PASSWORD", None)
+if GITHUB_USERNAME and GITHUB_PASSWORD:
+    github = Github(GITHUB_USERNAME, GITHUB_PASSWORD)
+else:
+    github = None
+
 # Heroku Credentials for updater.
 HEROKU_APPNAME = os.environ.get("HEROKU_APPNAME", None)
 HEROKU_APIKEY = os.environ.get("HEROKU_APIKEY", None)
@@ -73,16 +85,20 @@ HEROKU_APIKEY = os.environ.get("HEROKU_APIKEY", None)
 # Custom (forked) repo URL for updater.
 UPSTREAM_REPO_URL = os.environ.get(
     "UPSTREAM_REPO_URL",
-    "https://github.com/AvinashReddy3108/PaperplaneExtended.git")
+    "https://github.com/HitaloKun/TG-UBotX.git")
+
+# Spamwatch API Key
+SPAMWATCH_API_KEY = os.environ.get("SPAMWATCH_API_KEY", None)
+if SPAMWATCH_API_KEY:
+    spamwatch = SpamWatch(SPAMWATCH_API_KEY, host="https://api.spamwat.ch")
+else:
+    spamwatch = None
 
 # Console verbose logging
 CONSOLE_LOGGER_VERBOSE = sb(os.environ.get("CONSOLE_LOGGER_VERBOSE", "False"))
 
 # SQL Database URI
 DB_URI = os.environ.get("DATABASE_URL", None)
-
-# OCR API key
-OCR_SPACE_API_KEY = os.environ.get("OCR_SPACE_API_KEY", None)
 
 # remove.bg API key
 REM_BG_API_KEY = os.environ.get("REM_BG_API_KEY", None)
@@ -95,9 +111,9 @@ GOOGLE_CHROME_BIN = os.environ.get("GOOGLE_CHROME_BIN", None)
 OPEN_WEATHER_MAP_APPID = os.environ.get("OPEN_WEATHER_MAP_APPID", None)
 WEATHER_DEFCITY = os.environ.get("WEATHER_DEFCITY", None)
 
-# Anti Spambot Config
-ANTI_SPAMBOT = sb(os.environ.get("ANTI_SPAMBOT", "False"))
-ANTI_SPAMBOT_SHOUT = sb(os.environ.get("ANTI_SPAMBOT_SHOUT", "False"))
+# Deepfry
+FACE_API_KEY = os.environ.get("FACE_API_KEY", None)
+FACE_API_URL = os.environ.get("FACE_API_URL", None)
 
 # Youtube API key
 YOUTUBE_API_KEY = os.environ.get("YOUTUBE_API_KEY", None)
@@ -111,23 +127,6 @@ TZ_NUMBER = int(os.environ.get("TZ_NUMBER", 1))
 
 # Clean Welcome
 CLEAN_WELCOME = sb(os.environ.get("CLEAN_WELCOME", "True"))
-
-# Last.fm Module
-BIO_PREFIX = os.environ.get("BIO_PREFIX", None)
-DEFAULT_BIO = os.environ.get("DEFAULT_BIO", None)
-
-LASTFM_API = os.environ.get("LASTFM_API", None)
-LASTFM_SECRET = os.environ.get("LASTFM_SECRET", None)
-LASTFM_USERNAME = os.environ.get("LASTFM_USERNAME", None)
-LASTFM_PASSWORD_PLAIN = os.environ.get("LASTFM_PASSWORD", None)
-LASTFM_PASS = md5(LASTFM_PASSWORD_PLAIN)
-if LASTFM_API and LASTFM_SECRET and LASTFM_USERNAME and LASTFM_PASS:
-    lastfm = LastFMNetwork(api_key=LASTFM_API,
-                           api_secret=LASTFM_SECRET,
-                           username=LASTFM_USERNAME,
-                           password_hash=LASTFM_PASS)
-else:
-    lastfm = None
 
 # Google Drive Module
 G_DRIVE_CLIENT_ID = os.environ.get("G_DRIVE_CLIENT_ID", None)
@@ -143,10 +142,10 @@ if not os.path.exists('bin'):
     os.mkdir('bin')
 
 binaries = {
-    "https://raw.githubusercontent.com/yshalsager/megadown/master/megadown":
+    "https://raw.githubusercontent.com/adekmaulana/megadown/master/megadown":
     "bin/megadown",
     "https://raw.githubusercontent.com/yshalsager/cmrudl.py/master/cmrudl.py":
-    "bin/cmrudl"
+    "bin/cmrudl",
 }
 
 for binary, path in binaries.items():
@@ -157,20 +156,20 @@ for binary, path in binaries.items():
 # 'bot' variable
 if STRING_SESSION:
     # pylint: disable=invalid-name
-    bot = TelegramClient(StringSession(STRING_SESSION),
-                         API_KEY,
-                         API_HASH,
-                         connection_retries=None,
-                         auto_reconnect=False,
-                         lang_code='en')
+    bot = UserBot(StringSession(STRING_SESSION),
+                  API_KEY,
+                  API_HASH,
+                  connection_retries=None,
+                  auto_reconnect=False,
+                  lang_code='en')
 else:
     # pylint: disable=invalid-name
-    bot = TelegramClient("userbot",
-                         API_KEY,
-                         API_HASH,
-                         connection_retries=None,
-                         auto_reconnect=False,
-                         lang_code='en')
+    bot = UserBot("userbot",
+                  API_KEY,
+                  API_HASH,
+                  connection_retries=None,
+                  auto_reconnect=False,
+                  lang_code='en')
 
 
 async def check_botlog_chatid():
@@ -201,7 +200,7 @@ async def check_botlog_chatid():
 with bot:
     try:
         bot.loop.run_until_complete(check_botlog_chatid())
-    except:
+    except BaseException:
         LOGS.info(
             "BOTLOG_CHATID environment variable isn't a "
             "valid entity. Check your environment variables/config.env file.")
@@ -215,3 +214,4 @@ LASTMSG = {}
 CMD_HELP = {}
 ISAFK = False
 AFKREASON = None
+VERSION = "6.4.7"
