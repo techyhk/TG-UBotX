@@ -11,7 +11,7 @@ from sys import version_info
 from logging import basicConfig, getLogger, INFO, DEBUG
 from distutils.util import strtobool as sb
 
-from pylast import LastFMNetwork, md5
+from pylast import md5
 from pySmartDL import SmartDL
 from github import Github
 from spamwatch import Client as SpamWatch
@@ -85,7 +85,7 @@ HEROKU_APIKEY = os.environ.get("HEROKU_APIKEY", None)
 # Custom (forked) repo URL for updater.
 UPSTREAM_REPO_URL = os.environ.get(
     "UPSTREAM_REPO_URL",
-    "https://github.com/HitaloKun/TG-UBotX.git")
+    "https://github.com/HitaloSama/TG-UBotX.git")
 
 # Spamwatch API Key
 SPAMWATCH_API_KEY = os.environ.get("SPAMWATCH_API_KEY", None)
