@@ -26,9 +26,10 @@ First of all you should know this bot is a major work in progress. It is a fork 
 
 ## Credits
 
-* [Paperlane Extended](https://github.com/AvinashReddy3108/PaperplaneExtended)
-* [Paperplane](https://github.com/RaphielGang/Telegram-UserBot)
+* [PaperlaneExtended](https://github.com/AvinashReddy3108/PaperplaneExtended)
+* [Telegram-UserBot](https://github.com/RaphielGang/Telegram-UserBot)
 * [tg_userbot](https://github.com/watzon/tg_userbot)
+* [tguserbot](https://github.com/nunopenim/tguserbot)
 * [OpenUserBot](https://github.com/mkaraniya/OpenUserBot)
 
 You can also find credits inside the files in case you see any module without the proper credits call me on Telegram @HitaloSama
