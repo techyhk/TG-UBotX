@@ -9,11 +9,10 @@ from telethon.errors import (ChannelInvalidError, ChannelPrivateError, ChannelPu
 from telethon.utils import get_input_location
 
 from ..help import add_help_item
-from userbot.events import register, errors_handler
+from userbot.events import register
 
 
 @register(pattern="\.info(?: |$)(.*)", outgoing=True)
-@errors_handler
 async def info(event):
     await event.edit("`Analysing the chat...`")
     chat = await get_chatinfo(event)
