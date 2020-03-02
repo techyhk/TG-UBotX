@@ -3,7 +3,7 @@ from telethon.tl.functions.users import GetFullUserRequest
 from telethon.tl.types import MessageEntityMentionName
 
 from ..help import add_help_item
-import userbot.modules.utils.cas_api as cas
+import userbot.utils.cas_api as cas
 from userbot.events import register, errors_handler
 
 
