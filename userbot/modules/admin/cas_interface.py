@@ -4,7 +4,7 @@ from telethon.tl.types import MessageEntityMentionName
 
 from ..help import add_help_item
 import userbot.utils.cas_api as cas
-from userbot.events import register, errors_handler
+from userbot.events import register
 
 
 async def get_user(event): #kanged get user
@@ -34,7 +34,6 @@ async def get_user(event): #kanged get user
 
 
 @register(pattern="\.cascheck(?: |$)(.*)", outgoing=True)
-@errors_handler
 async def caschecker(event):
     if not event.text[0].isalpha() and event.text[0] in ("."):
         if event.fwd_from:
