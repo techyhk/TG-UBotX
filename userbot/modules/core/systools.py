@@ -12,6 +12,9 @@ from shutil import which
 from os import remove
 from telethon import version
 
+import userbot.utils.git_api as git
+import userbot.utils.cas_api as cas
+
 from ..help import add_help_item
 from userbot import ALIVE_NAME, VERSION
 from userbot.events import register
@@ -130,6 +133,8 @@ async def amireallyalive(alive):
         f"**Telethon version:** `{version.__version__}` \n"
         f"**Python version:** `{python_version()}` \n"
         f"**UBotX version:** `{VERSION}` \n"
+        f"**GitHub API:** {gitver} \n"
+        f"**CAS API:** {casver} \n"
         f"**Source:** [HERE](https://github.com/HitaloSama/TG-UBotX) \n\n"
         f"**Modules loaded:** `{len(ALL_MODULES)}` \n"
         f"**User:** `{DEFAULTUSER}`"
