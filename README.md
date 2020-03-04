@@ -22,7 +22,7 @@ First of all you should know this bot is a major work in progress. It is a fork 
 
 ## Heroku Deploy
 
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/TG-UBotX/TG-UBotX)
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/HitaloSama/TG-UBotX)
 
 ## Credits
 
