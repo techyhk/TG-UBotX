@@ -20,10 +20,7 @@ def subprocess_run(cmd):
     talk = subproc.communicate()
     exitCode = subproc.returncode
     if exitCode != 0:
-        print('An error was detected while running the subprocess:\n'
-              f'exit code: {exitCode}\n'
-              f'stdout: {talk[0]}\n'
-              f'stderr: {talk[1]}')
+        return
     return talk
 
 
@@ -89,7 +86,7 @@ async def torrent_download(event):
 
 
 @register(outgoing=True, pattern=r"^\.aurl(?: |$)(.*)")
-async def magnet_download(event):
+async def aurl_download(event):
     uri = [event.pattern_match.group(1)]
     try:  # Add URL Into Queue
         download = aria2.add_uris(uri, options=None, position=None)
@@ -102,7 +99,7 @@ async def magnet_download(event):
     file = aria2.get_download(gid)
     if file.followed_by_ids:
         new_gid = await check_metadata(gid)
-        await progress_status(gid=new_gid, event=event, previous=None)
+        await check_progress_for_dl(gid=new_gid, event=event, previous=None)
 
 
 @register(outgoing=True, pattern=r"^\.aclear(?: |$)(.*)")

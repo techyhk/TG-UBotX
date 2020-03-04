@@ -32,4 +32,4 @@ First of all you should know this bot is a major work in progress. It is a fork 
 * [tguserbot](https://github.com/nunopenim/tguserbot) by the cas modules and cas_api 
 * [OpenUserBot](https://github.com/mkaraniya/OpenUserBot) for help in some fixes
 
-You can also find credits inside the files in case you see any module without the proper credits call me on Telegram @HitaloSama
+You can also find credits in certain files if you miss any credit contact me on Telegram (@HitaloSama)

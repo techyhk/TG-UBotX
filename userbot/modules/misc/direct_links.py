@@ -20,20 +20,22 @@ from userbot.events import register
 
 
 def subprocess_run(cmd):
+    reply = ""
     subproc = Popen(cmd, stdout=PIPE, stderr=PIPE,
                     shell=True, universal_newlines=True,
                     executable="bash")
     talk = subproc.communicate()
     exitCode = subproc.returncode
     if exitCode != 0:
-        print('An error was detected while running the subprocess:\n'
-              f'exit code: {exitCode}\n'
-              f'stdout: {talk[0]}\n'
-              f'stderr: {talk[1]}')
+        reply += ('```An error was detected while running the subprocess:\n'
+                  f'exit code: {exitCode}\n'
+                  f'stdout: {talk[0]}\n'
+                  f'stderr: {talk[1]}```')
+        return reply
     return talk
 
 
-@register(outgoing=True, pattern=r"^\.direct(?: |$)([\s\S]*)")
+@register(outgoing=True, pattern=r"^.direct(?: |$)([\s\S]*)")
 async def direct_link_generator(request):
     """ direct links generator """
     await request.edit("`Processing...`")
@@ -183,9 +185,10 @@ def mega_dl(url: str) -> str:
     result = subprocess_run(cmd)
     try:
         data = json.loads(result[0])
-        print(data)
     except json.JSONDecodeError:
         reply += "`Error: Can't extract the link`\n"
+        return reply
+    except IndexError:
         return reply
     dl_url = data['url']
     name = data['file_name']
@@ -205,11 +208,13 @@ def cm_ru(url: str) -> str:
         return reply
     cmd = f'bin/cmrudl -s {link}'
     result = subprocess_run(cmd)
-    result = result[0].splitlines()[-1]
     try:
+        result = result[0].splitlines()[-1]
         data = json.loads(result)
     except json.decoder.JSONDecodeError:
         reply += "`Error: Can't extract the link`\n"
+        return reply
+    except IndexError:
         return reply
     dl_url = data['download']
     name = data['file_name']
@@ -236,20 +241,18 @@ def mediafire(url: str) -> str:
 
 
 def sourceforge(url: str) -> str:
+    """ SourceForge direct links generator """
     try:
         link = re.findall(r'\bhttps?://.*sourceforge\.net\S+', url)[0]
     except IndexError:
         reply = "`No SourceForge links found`\n"
         return reply
-    file_path = re.findall(r'/files(.*)/download', link)
-    if not file_path:
-        file_path = re.findall(r'/files(.*)', link)
-    file_path = file_path[0]
+    file_path = re.findall(r'files(.*)/download', link)[0]
     reply = f"Mirrors for __{file_path.split('/')[-1]}__\n"
     project = re.findall(r'projects?/(.*?)/files', link)[0]
     mirrors = f'https://sourceforge.net/settings/mirror_choices?' \
         f'projectname={project}&filename={file_path}'
-    page = BeautifulSoup(requests.get(mirrors).content, 'lxml')
+    page = BeautifulSoup(requests.get(mirrors).content, 'html.parser')
     info = page.find('ul', {'id': 'mirrorList'}).findAll('li')
     for mirror in info[1:]:
         name = re.findall(r'\((.*)\)', mirror.text.strip())[0]
