@@ -128,6 +128,8 @@ async def pipcheck(pip):
 @register(outgoing=True, pattern=r"^\.alive$")
 async def amireallyalive(alive):
     """ For .alive command, check if the bot is running.  """
+    gitver = git.vercheck()
+    casver = cas.vercheck()
     await alive.edit(
         "**UBotX is alive!**\n\n"
         f"**Telethon version:** `{version.__version__}` \n"
