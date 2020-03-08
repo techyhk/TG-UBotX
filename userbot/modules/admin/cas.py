@@ -19,7 +19,7 @@ from userbot import BOTLOG_CHATID, TEMP_DOWNLOAD_DIRECTORY
 from userbot.events import register
 
 
-@register(outgoing=True, pattern=r"^\.cascheck ?(.*)")
+@register(outgoing=True, pattern=r"^\.ccheck ?(.*)")
 async def cascheck(cas):  # checks if a user, or all users in a group are cas banned
     if not cas.text[0].isalpha() and cas.text[0] in ("."):
         if cas.reply_to_msg_id:
