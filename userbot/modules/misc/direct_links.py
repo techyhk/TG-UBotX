@@ -58,8 +58,6 @@ async def direct_link_generator(request):
             reply += gdrive(link)
         elif 'zippyshare.com' in link:
             reply += zippy_share(link)
-        elif 'mega.' in link:
-            reply += mega_dl(link)
         elif 'yadi.sk' in link:
             reply += yandex_disk(link)
         elif 'cloud.mail.ru' in link:
@@ -70,8 +68,6 @@ async def direct_link_generator(request):
             reply += sourceforge(link)
         elif 'osdn.net' in link:
             reply += osdn(link)
-        elif 'github.com' in link:
-            reply += github(link)
         elif 'androidfilehost.com' in link:
             reply += androidfilehost(link)
         else:
@@ -172,31 +168,6 @@ def yandex_disk(url: str) -> str:
     return reply
 
 
-def mega_dl(url: str) -> str:
-    """ MEGA.nz direct links generator
-    Using https://github.com/tonikelope/megadown"""
-    reply = ''
-    try:
-        link = re.findall(r'\bhttps?://.*mega.*\.nz\S+', url)[0]
-    except IndexError:
-        reply = "`No MEGA.nz links found`\n"
-        return reply
-    cmd = f'bin/megadown -q -m {link}'
-    result = subprocess_run(cmd)
-    try:
-        data = json.loads(result[0])
-    except json.JSONDecodeError:
-        reply += "`Error: Can't extract the link`\n"
-        return reply
-    except IndexError:
-        return reply
-    dl_url = data['url']
-    name = data['file_name']
-    size = naturalsize(int(data['file_size']))
-    reply += f'[{name} ({size})]({dl_url})\n'
-    return reply
-
-
 def cm_ru(url: str) -> str:
     """ cloud.mail.ru direct links generator
     Using https://github.com/JrMasterModelBuilder/cmrudl.py"""
@@ -283,25 +254,6 @@ def osdn(url: str) -> str:
     return reply
 
 
-def github(url: str) -> str:
-    """ GitHub direct links generator """
-    try:
-        link = re.findall(r'\bhttps?://.*github\.com.*releases\S+', url)[0]
-    except IndexError:
-        reply = "`No GitHub Releases links found`\n"
-        return reply
-    reply = ''
-    dl_url = ''
-    download = requests.get(url, stream=True, allow_redirects=False)
-    try:
-        dl_url = download.headers["location"]
-    except KeyError:
-        reply += "`Error: Can't extract the link`\n"
-    name = link.split('/')[-1]
-    reply += f'[{name}]({dl_url}) '
-    return reply
-
-
 def androidfilehost(url: str) -> str:
     """ AFH direct links generator """
     try:
@@ -377,6 +329,6 @@ add_help_item(
 
     **List of supported URLs:**
     `Google Drive - Cloud Mail - Yandex.Disk - AFH -
-    ZippyShare - MediaFire - SourceForge - OSDN - GitHub`
+    ZippyShare - MediaFire - SourceForge - OSDN`
     """
 )
