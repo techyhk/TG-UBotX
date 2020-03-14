@@ -83,4 +83,5 @@ COPY ./sample_config.env ./userbot.session* ./config.env* /root/userbot/
 #
 RUN pip3 install -r requirements.txt
 RUN pip list --outdated --format=freeze | grep -v '^\-e' | cut -d = -f 1 | xargs -n1 pip install -U
+RUN pip3 install httplib2==0.15.0
 CMD ["python3","-m","userbot"]
