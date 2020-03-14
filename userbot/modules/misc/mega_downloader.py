@@ -12,9 +12,10 @@ import errno
 
 from pySmartDL import SmartDL
 from urllib.error import HTTPError
+from os.path import exists
 
 from ..help import add_help_item
-from userbot import LOGS
+from userbot import LOGS, TEMP_DOWNLOAD_DIRECTORY
 from userbot.events import register
 from userbot.modules.misc.upload_download import humanbytes
 
@@ -31,6 +32,29 @@ async def subprocess_run(cmd, megadl):
             f'stderr: {stderr.decode().strip()}```')
         return exitCode
     return stdout, stderr
+
+
+async def mega_downloader_fallback(megadl, link):
+    if not exists(TEMP_DOWNLOAD_DIRECTORY):
+        os.mkdir(TEMP_DOWNLOAD_DIRECTORY)
+    await megadl.edit('`Processing fallback download...`')
+    cmd = f'megadl --path {TEMP_DOWNLOAD_DIRECTORY} {link}'
+    await subprocess_run(cmd, megadl)
+    result = await subprocess_run(f'ls {TEMP_DOWNLOAD_DIRECTORY}', megadl)
+    if len(result) >= 4096:
+        message = open('list.txt', 'w+')
+        message.write(result)
+        await megadl.client.send_file(
+            megadl.chat_id,
+            "list.txt",
+            reply_to=megadl.id,
+            caption="`List files is too many, sending it as a file`",
+         )
+        message.close()
+        os.remove('list.txt')
+    else:
+        await megadl.edit('**Downloaded files**:\n' + '`' + result[0].decode().strip() + '`')
+    return
 
 
 @register(outgoing=True, pattern=r"^.mega(?: |$)(.*)")
@@ -50,6 +74,12 @@ async def mega_downloader(megadl):
     except IndexError:
         await megadl.edit("`No MEGA.nz link found`\n")
         return
+    if "#F" in link:
+        await megadl.edit('`Link is folder processing fallback...`')
+        await mega_downloader_fallback(megadl, link)
+        return
+    else:
+        pass
     cmd = f'bin/megadown -q -m {link}'
     result = await subprocess_run(cmd, megadl)
     try:

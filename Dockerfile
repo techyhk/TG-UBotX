@@ -7,6 +7,7 @@ RUN sed -e 's;^#http\(.*\)/edge/community;http\1/edge/community;g' -i /etc/apk/r
 # install ca-certificates so that HTTPS works consistently
 # other runtime dependencies for Python are installed later
 RUN apk add --no-cache ca-certificates
+RUN echo 'http://dl-cdn.alpinelinux.org/alpine/edge/testing' >> /etc/apk/repositories
 
 # Installing Packages
 RUN apk add --no-cache --update \
@@ -54,7 +55,8 @@ RUN apk add --no-cache --update \
     chromium \
     chromium-chromedriver \
     zlib-dev \
-    zip
+    zip \
+    megatools
 
 
 RUN python3 -m ensurepip \
