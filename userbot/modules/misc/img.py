@@ -5,7 +5,7 @@ import shutil
 
 from ..help import add_help_item
 from userbot.events import register
-from userbot.google_images_download import googleimagesdownload
+from userbot.utils.google_images_download import googleimagesdownload
 
 
 @register(outgoing=True, pattern="^\.img (.*)")
