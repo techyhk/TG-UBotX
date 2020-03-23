@@ -1,4 +1,5 @@
 git+https://github.com/YouTwitFace/photohash.git
+qrcode
 aiohttp
 aria2p>=0.7.1
 async_generator>=1.10
