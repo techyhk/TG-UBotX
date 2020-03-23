@@ -11,7 +11,7 @@ from asyncio import create_subprocess_shell as asyncSubprocess
 from asyncio.subprocess import PIPE as asyncPIPE
 
 from ..help import add_help_item
-from userbot import LOGS, HEROKU_APP_NAME, HEROKU_API_KEY
+from userbot import LOGS, HEROKU_APPNAME, HEROKU_APIKEY
 from userbot.events import register
 
 Heroku = heroku3.from_key(HEROKU_API_KEY)

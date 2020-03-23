@@ -20,7 +20,7 @@ from userbot.events import register
 from userbot.modules.misc.upload_download import humanbytes
 
 
-async def subprocess_run(cmd, megadl):
+async def subprocess_run(megadl, cmd):
     subproc = await asyncSubprocess(cmd, stdout=asyncPIPE, stderr=asyncPIPE)
     stdout, stderr = await subproc.communicate()
     exitCode = subproc.returncode
@@ -31,7 +31,7 @@ async def subprocess_run(cmd, megadl):
             f'stdout: {stdout.decode().strip()}\n'
             f'stderr: {stderr.decode().strip()}```')
         return exitCode
-    return stdout, stderr, exitCode
+    return stdout.decode().strip(), stderr.decode().strip(), exitCode
 
 
 async def mega_downloader_fallback(megadl, link):
@@ -39,7 +39,7 @@ async def mega_downloader_fallback(megadl, link):
         os.mkdir('mega')
     await megadl.edit('`Downloading...`')
     cmd = f'megadl --path mega {link} > /dev/null'
-    result = await subprocess_run(cmd, megadl)
+    result = await subprocess_run(megadl, cmd)
     if result[2] != 0:
         return
     with open('list.txt', 'w+') as list_files:
@@ -60,7 +60,7 @@ async def mega_downloader_fallback(megadl, link):
     return
 
 
-@register(outgoing=True, pattern=r"^.mega(?: |$)(.*)")
+@register(outgoing=True, pattern=r"^\.mega(?: |$)(.*)")
 async def mega_downloader(megadl):
     await megadl.edit("`Processing...`")
     msg_link = await megadl.get_reply_message()
@@ -78,16 +78,14 @@ async def mega_downloader(megadl):
         await megadl.edit("`No MEGA.nz link found`\n")
         return
     if "#F" in link:
-        await megadl.edit('`MEGA.nz link is a folder, processing fallback...`')
-        await asyncio.sleep(1)
+        await megadl.edit('`MEGA.nz link is a folder...`')
+        await asyncio.sleep(2)
         await mega_downloader_fallback(megadl, link)
         return
-    else:
-        pass
     cmd = f'bin/megadown -q -m {link}'
-    result = await subprocess_run(cmd, megadl)
+    result = await subprocess_run(megadl, cmd)
     try:
-        data = json.loads(result[0].decode().strip())
+        data = json.loads(result[0])
     except json.JSONDecodeError:
         await megadl.edit("`Error: Can't extract the link`\n")
         return
@@ -139,8 +137,9 @@ async def mega_downloader(megadl):
     if downloader.isSuccessful():
         download_time = downloader.get_dl_time(human=True)
         try:
-            P = multiprocessing.Process(target=await decrypt_file(
-                file_name, temp_file_name, hex_key, hex_raw_key, megadl), name="Decrypt_File")
+            P = multiprocessing.Process(target=await decrypt_file(megadl,
+                                        file_name, temp_file_name, hex_key, hex_raw_key),
+                                        name="Decrypt_File")
             P.start()
             P.join()
         except FileNotFoundError as e:
@@ -151,17 +150,17 @@ async def mega_downloader(megadl):
                               "Successfully downloaded\n"
                               f"Download took: {download_time}")
     else:
-        await megadl.edit("`Failed to download, check heroku Log for details`")
+        await megadl.edit("`Failed to download, check heroku Logs for more details`")
         for e in downloader.get_errors():
             LOGS.info(str(e))
     return
 
 
-async def decrypt_file(file_name, temp_file_name,
-                       hex_key, hex_raw_key, megadl):
+async def decrypt_file(megadl, file_name, temp_file_name,
+                       hex_key, hex_raw_key):
     cmd = ("cat '{}' | openssl enc -d -aes-128-ctr -K {} -iv {} > '{}'"
            .format(temp_file_name, hex_key, hex_raw_key, file_name))
-    if await subprocess_run(cmd, megadl):
+    if await subprocess_run(megadl, cmd):
         os.remove(temp_file_name)
     else:
         raise FileNotFoundError(
