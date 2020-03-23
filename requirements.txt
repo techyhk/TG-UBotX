@@ -1,4 +1,5 @@
 git+https://github.com/YouTwitFace/photohash.git
+barcode
 qrcode
 aiohttp
 aria2p>=0.7.1
