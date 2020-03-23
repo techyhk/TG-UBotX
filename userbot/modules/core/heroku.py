@@ -14,7 +14,7 @@ from ..help import add_help_item
 from userbot import LOGS, HEROKU_APPNAME, HEROKU_APIKEY
 from userbot.events import register
 
-Heroku = heroku3.from_key(HEROKU_API_KEY)
+Heroku = heroku3.from_key(HEROKU_APIKEY)
 
 
 async def subprocess_run(cmd, heroku):
@@ -31,12 +31,12 @@ async def subprocess_run(cmd, heroku):
     return stdout.decode().strip(), stderr.decode().strip(), exitCode
 
 
-@register(outgoing=True, pattern=r"^.heroku(?: |$)(.*)")
+@register(outgoing=True, pattern=r"^\.heroku(?: |$)(.*)")
 async def heroku_manager(heroku):
     await heroku.edit("`Processing...`")
     await asyncio.sleep(3)
     conf = heroku.pattern_match.group(1)
-    result = await subprocess_run(f'heroku ps -a {HEROKU_APP_NAME}', heroku)
+    result = await subprocess_run(f'heroku ps -a {HEROKU_APPNAME}', heroku)
     if result[2] != 0:
         return
     hours_remaining = result[0]
