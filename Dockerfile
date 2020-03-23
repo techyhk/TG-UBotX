@@ -56,7 +56,12 @@ RUN apk add --no-cache --update \
     chromium-chromedriver \
     zlib-dev \
     zip \
-    megatools
+    megatools \
+    nodejs \
+    freetype-dev
+
+
+RUN curl https://cli-assets.heroku.com/install.sh | sh
 
 
 RUN python3 -m ensurepip \
@@ -81,7 +86,5 @@ COPY ./sample_config.env ./userbot.session* ./config.env* /root/userbot/
 #
 # Install requirements
 #
-RUN pip3 install -r requirements.txt
-RUN pip list --outdated --format=freeze | grep -v '^\-e' | cut -d = -f 1 | xargs -n1 pip install -U
-RUN pip3 install httplib2==0.15.0
+RUN pip3 install -r requirements.txt --upgrade
 CMD ["python3","-m","userbot"]
