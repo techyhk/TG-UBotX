@@ -10,30 +10,29 @@ RUN apk add --no-cache ca-certificates
 RUN echo 'http://dl-cdn.alpinelinux.org/alpine/edge/testing' >> /etc/apk/repositories
 
 # Installing Packages
-RUN apk add --no-cache --update \
+RUN apk add --no-cache=true --update \
+    coreutils \
     bash \
     build-base \
     bzip2-dev \
     curl \
-    coreutils \
     figlet \
     gcc \
     g++ \
     git \
+    sudo \
     aria2 \
     util-linux \
     libevent \
-    libjpeg-turbo-dev \
     jpeg-dev \
-    jpeg \
-    libc-dev \
     libffi-dev \
     libpq \
     libwebp-dev \
+    libxml2 \
     libxml2-dev \
     libxslt-dev \
     linux-headers \
-    musl-dev \
+    musl \
     neofetch \
     openssl-dev \
     postgresql \
@@ -48,21 +47,20 @@ RUN apk add --no-cache --update \
     python3 \
     python3-dev \
     readline-dev \
+    sqlite \
     ffmpeg \
-    figlet \
     sqlite-dev \
     sudo \
     chromium \
     chromium-chromedriver \
     zlib-dev \
+    jpeg \
     zip \
     megatools \
     nodejs \
     freetype-dev
 
-
-RUN curl https://cli-assets.heroku.com/install.sh | sh
-
+RUN curl 'https://cli-assets.heroku.com/install.sh' | sh
 
 RUN python3 -m ensurepip \
     && pip3 install --upgrade pip setuptools \
