@@ -30,6 +30,10 @@
       "description": "In case you maintain a fork, add your repo URL here.",
       "required": false
     },
+    "UPSTREAM_REPO_BRANCH": {
+      "description": "Default branch of your custom fork repo.",
+      "required": false
+    },
     "HEROKU_APIKEY": {
       "description": "Your Heroku API key, get it from 'https://dashboard.heroku.com/account'",
       "value": ""
@@ -116,6 +120,18 @@
     },
     "WEATHER_DEFCITY": {
       "description": "Set the default city for the userbot's weather module.",
+      "required": false
+    },
+    "SPAMWATCH_API_KEY": {
+      "description": "Set the SpamWatch KEY API to be used in spamscan, spamscore, and user_info",
+      "required": false
+    },
+    "GITHUB_PASSWORD": {
+      "description": "Required for github module",
+      "required": false
+    },
+    "GITHUB_USERNAME": {
+      "description": "Required for github module",
       "required": false
     },
     "LOGSPAMMER": {

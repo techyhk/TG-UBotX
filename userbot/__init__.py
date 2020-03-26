@@ -86,6 +86,9 @@ HEROKU_APIKEY = os.environ.get("HEROKU_APIKEY", None)
 UPSTREAM_REPO_URL = os.environ.get(
     "UPSTREAM_REPO_URL",
     "https://github.com/HitaloSama/TG-UBotX.git")
+# UPSTREAM_REPO_URL branch, the default is master
+UPSTREAM_REPO_BRANCH = os.environ.get(
+    "UPSTREAM_REPO_BRANCH", "master")
 
 # Spamwatch API Key
 SPAMWATCH_API_KEY = os.environ.get("SPAMWATCH_API_KEY", None)
