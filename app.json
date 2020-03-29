@@ -37,10 +37,12 @@
     "HEROKU_APIKEY": {
       "description": "Your Heroku API key, get it from 'https://dashboard.heroku.com/account'",
       "value": ""
+      "required": true
     },
     "HEROKU_APPNAME": {
       "description": "Add the Heroku app name here. It helps with userbot updates.",
       "value": ""
+      "required": true
     },
     "COUNTRY": {
       "description": "Set your Country to be used in the .time and .date commands.",
@@ -133,6 +135,11 @@
     "GITHUB_USERNAME": {
       "description": "Required for github module",
       "required": false
+    },
+    "QUOTES_API_TOKEN": {
+      "description": "API for quotes module get it from http://antiddos.systems",
+      "value": "",
+      "required": true
     },
     "LOGSPAMMER": {
       "description": "Set this to True in case you want the error logs to be stored in the userbot log group, instead of spitting out the file in the current chat, requires a valid BOTLOG_CHATID to be set.",
