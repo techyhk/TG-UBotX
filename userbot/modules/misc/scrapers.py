@@ -41,8 +41,8 @@ from userbot import (BOTLOG, BOTLOG_CHATID, YOUTUBE_API_KEY,
                      CHROME_DRIVER, GOOGLE_CHROME_BIN)
 from userbot.events import register
 from telethon.tl.types import DocumentAttributeAudio
-from userbot.modules.upload_download import progress
-from userbot.google_images_download import googleimagesdownload
+from userbot.modules.misc.upload_download import progress
+from userbot.utils.google_images_download import googleimagesdownload
 
 CARBONLANG = "auto"
 TTS_LANG = "en"
@@ -663,11 +663,6 @@ def deEmojify(inputString):
     """ Remove emojis and other non-safe characters from string """
     return get_emoji_regexp().sub(u'', inputString)
 
-
-CMD_HELP.update({
-    "img":
-
-})
 
 add_help_item(
     "scrapers",
