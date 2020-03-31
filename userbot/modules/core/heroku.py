@@ -11,11 +11,11 @@ import requests
 import math
 
 from ..help import add_help_item
-from userbot import HEROKU_APPNAME, HEROKU_API_KEY
+from userbot import HEROKU_APPNAME, HEROKU_APIKEY
 from userbot.events import register
 from userbot.utils.prettyjson import prettyjson
 
-Heroku = heroku3.from_key(HEROKU_API_KEY)
+Heroku = heroku3.from_key(HEROKU_APIKEY)
 heroku_api = "https://api.heroku.com"
 
 
@@ -103,7 +103,7 @@ async def dyno_usage(dyno):
     user_id = Heroku.account().id
     headers = {
      'User-Agent': useragent,
-     'Authorization': f'Bearer {HEROKU_API_KEY}',
+     'Authorization': f'Bearer {HEROKU_APIKEY}',
      'Accept': 'application/vnd.heroku+json; version=3.account-quotas',
     }
     path = "/accounts/" + user_id + "/actions/get-quota"
