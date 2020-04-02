@@ -1,4 +1,4 @@
-# Copyright (C) 2020 Adek Maulana. (github.com/adekmaulana/ProjectBish)
+# Copyright (C) 2020 Adek Maulana.
 # All rights reserved.
 """
    Heroku manager for your userbot
@@ -13,7 +13,7 @@ import math
 from ..help import add_help_item
 from userbot import HEROKU_APPNAME, HEROKU_APIKEY
 from userbot.events import register
-from userbot.utils.prettyjson import prettyjson
+from userbot.prettyjson import prettyjson
 
 Heroku = heroku3.from_key(HEROKU_APIKEY)
 heroku_api = "https://api.heroku.com"
@@ -67,9 +67,15 @@ async def variable(var):
     elif exe == "set":
         await var.edit("`Setting information...`")
         variable = var.pattern_match.group(2)
+        if not variable:
+            return await var.edit(">`.set var <ConfigVars-name> <value>`")
         value = var.pattern_match.group(3)
         if not value:
-            return await var.edit("`.set var <config name> <value>`")
+            variable = variable.split()[0]
+            try:
+                value = var.pattern_match.group(2).split()[1]
+            except IndexError:
+                return await var.edit(">`.set var <ConfigVars-name> <value>`")
         await asyncio.sleep(1.5)
         if variable in heroku_var:
             await var.edit(f"**{variable}**  `successfully changed to`  ->  **{value}**")
