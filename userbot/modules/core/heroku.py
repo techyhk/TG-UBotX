@@ -13,7 +13,7 @@ import math
 from ..help import add_help_item
 from userbot import HEROKU_APPNAME, HEROKU_APIKEY
 from userbot.events import register
-from userbot.prettyjson import prettyjson
+from userbot.utils.prettyjson import prettyjson
 
 Heroku = heroku3.from_key(HEROKU_APIKEY)
 heroku_api = "https://api.heroku.com"
