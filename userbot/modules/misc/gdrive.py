@@ -496,7 +496,7 @@ async def generate_credentials(gdrive):
     """ - Generate credentials - """
     configs = {
         "installed": {
-            "client_id": GDRIVE_CLIENT_ID,
+            "client_id": G_DRIVE_CLIENT_ID,
             "client_secret": G_DRIVE_CLIENT_SECRET,
             "auth_uri": GOOGLE_AUTH_URI,
             "token_uri": GOOGLE_TOKEN_URI,
