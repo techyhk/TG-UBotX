@@ -136,7 +136,7 @@ async def amireallyalive(alive):
         f"**Python version:** `{python_version()}` \n"
         f"**GitHub API version:** `{gitver}` \n"
         f"**CAS API version:** `{casver}` \n\n"
-        f"**UBotX version:** `{VERSION}` \n"
+        f"**UBotX version:** `{VERSION} (E.O.L)` \n"
         f"**Source:** [HERE](https://github.com/HitaloSama/TG-UBotX) \n\n"
         f"**Modules loaded:** `{len(ALL_MODULES)}` \n"
         f"**User:** `{DEFAULTUSER}`"

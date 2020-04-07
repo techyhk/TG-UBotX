@@ -25,8 +25,8 @@ def register(**args):
     disable_edited = args.get('disable_edited', False)
     groups_only = args.get('groups_only', False)
     trigger_on_fwd = args.get('trigger_on_fwd', False)
+    trigger_on_inline = args.get('trigger_on_inline', False)
     disable_errors = args.get('disable_errors', False)
-    insecure = args.get('insecure', False)
 
     if pattern is not None and not pattern.startswith('(?i)'):
         args['pattern'] = '(?i)' + pattern
@@ -40,11 +40,11 @@ def register(**args):
     if "disable_errors" in args:
         del args['disable_errors']
 
-    if "insecure" in args:
-        del args['insecure']
-
     if "trigger_on_fwd" in args:
         del args['trigger_on_fwd']
+
+    if "trigger_on_inline" in args:
+        del args['trigger_on_inline']
 
     def decorator(func):
         async def wrapper(check):
@@ -56,11 +56,11 @@ def register(**args):
             if not trigger_on_fwd and check.fwd_from:
                 return
 
-            if groups_only and not check.is_group:
-                await check.respond("`I don't think this is a group.`")
+            if check.via_bot_id and not trigger_on_inline:
                 return
 
-            if check.via_bot_id and not insecure:
+            if groups_only and not check.is_group:
+                await check.respond("`I don't think this is a group.`")
                 return
 
             try:
