@@ -26,10 +26,10 @@ First of all you should know this bot is a major work in progress. It is a fork 
 
 ## Credits
 
-* [PaperlaneExtended](https://github.com/AvinashReddy3108/PaperplaneExtended) for the great base.
+* [ProjectBish](https://github.com/adekmaulana/ProjectBish) for the great base.
+* [PaperlaneExtended](https://github.com/AvinashReddy3108/PaperplaneExtended) base of the ProjectBish.
 * [Telegram-Paperplane](https://github.com/RaphielGang/Telegram-UserBot) inspiration in some things.
 * [tg_userbot](https://github.com/watzon/tg_userbot) for the modules chat_info, user_info and also a better help system.
 * [tguserbot](https://github.com/nunopenim/tguserbot) for the cas modules and cas_api.
-* [ProjectBish](https://github.com/adekmaulana/ProjectBish) for new modules (like Heroku and Mega) and fixes.
 
 You can also find credits in certain files if you miss any credit contact me on Telegram (@HitaloSama)
