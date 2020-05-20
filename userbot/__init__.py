@@ -1,6 +1,6 @@
 # Copyright (C) 2019 The Raphielscape Company LLC.
 #
-# Licensed under the Raphielscape Public License, Version 1.c (the "License");
+# Licensed under the Raphielscape Public License, Version 1.d (the "License");
 # you may not use this file except in compliance with the License.
 #
 """ Userbot initialization. """
@@ -13,10 +13,14 @@ from distutils.util import strtobool as sb
 
 from pylast import LastFMNetwork, md5
 from pySmartDL import SmartDL
+from github import Github
+from spamwatch import Client as SpamWatch
 from dotenv import load_dotenv
 from requests import get
 from telethon import TelegramClient
 from telethon.sessions import StringSession
+
+from userbot.client import UserBot
 
 load_dotenv("config.env")
 
@@ -67,6 +71,14 @@ LOGSPAMMER = sb(os.environ.get("LOGSPAMMER", "False"))
 # Bleep Blop, this is a bot ;)
 PM_AUTO_BAN = sb(os.environ.get("PM_AUTO_BAN", "False"))
 
+# GitHub Repos Module
+GITHUB_USERNAME = os.environ.get("GITHUB_USERNAME", None)
+GITHUB_PASSWORD = os.environ.get("GITHUB_PASSWORD", None)
+if GITHUB_USERNAME and GITHUB_PASSWORD:
+    github = Github(GITHUB_USERNAME, GITHUB_PASSWORD)
+else:
+    github = None
+
 # Heroku Credentials for updater.
 HEROKU_APP_NAME = os.environ.get("HEROKU_APP_NAME", None)
 HEROKU_API_KEY = os.environ.get("HEROKU_API_KEY", None)
@@ -74,10 +86,17 @@ HEROKU_API_KEY = os.environ.get("HEROKU_API_KEY", None)
 # Custom (forked) repo URL for updater.
 UPSTREAM_REPO_URL = os.environ.get(
     "UPSTREAM_REPO_URL",
-    "https://github.com/adekmaulana/ProjectBish.git")
+    "https://github.com/HitaloSama/TG-UBotX.git")
 # UPSTREAM_REPO_URL branch, the default is master
 UPSTREAM_REPO_BRANCH = os.environ.get(
     "UPSTREAM_REPO_BRANCH", "master")
+
+# Spamwatch API Key
+SPAMWATCH_API_KEY = os.environ.get("SPAMWATCH_API_KEY", None)
+if SPAMWATCH_API_KEY:
+    spamwatch = SpamWatch(SPAMWATCH_API_KEY, host="https://api.spamwat.ch")
+else:
+    spamwatch = None
 
 # Console verbose logging
 CONSOLE_LOGGER_VERBOSE = sb(os.environ.get("CONSOLE_LOGGER_VERBOSE", "False"))
@@ -104,6 +123,10 @@ GOOGLE_CHROME_BIN = os.environ.get("GOOGLE_CHROME_BIN", None)
 # OpenWeatherMap API Key
 OPEN_WEATHER_MAP_APPID = os.environ.get("OPEN_WEATHER_MAP_APPID", None)
 WEATHER_DEFCITY = os.environ.get("WEATHER_DEFCITY", None)
+
+# Deepfry
+FACE_API_KEY = os.environ.get("FACE_API_KEY", None)
+FACE_API_URL = os.environ.get("FACE_API_URL", None)
 
 # Anti Spambot Config
 ANTI_SPAMBOT = sb(os.environ.get("ANTI_SPAMBOT", "False"))
@@ -177,10 +200,21 @@ for binary, path in binaries.items():
 # 'bot' variable
 if STRING_SESSION:
     # pylint: disable=invalid-name
-    bot = TelegramClient(StringSession(STRING_SESSION), API_KEY, API_HASH)
-else:
+    bot = UserBot(StringSession(STRING_SESSION),
+                  API_KEY,
+                  API_HASH,
+                  connection_retries=None,
+                  auto_reconnect=False,
+                  lang_code='en')
+# 'bot' variable
+if STRING_SESSION:
     # pylint: disable=invalid-name
-    bot = TelegramClient("userbot", API_KEY, API_HASH)
+    bot = UserBot(StringSession(STRING_SESSION),
+                  API_KEY,
+                  API_HASH,
+                  connection_retries=None,
+                  auto_reconnect=False,
+                  lang_code='en')
 
 
 async def check_botlog_chatid():
@@ -224,3 +258,4 @@ LASTMSG = {}
 CMD_HELP = {}
 ISAFK = False
 AFKREASON = None
+VERSION = "7.0.0"

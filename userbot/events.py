@@ -96,11 +96,9 @@ def register(**args):
                 if not disable_errors:
                     date = strftime("%Y-%m-%d %H:%M:%S", gmtime())
 
-                    text = "**USERBOT ERROR REPORT**\n"
-                    link = "Support chat PM: @adekmaulana"
-                    text += "If you want to, you can report it"
-                    text += f"- just forward this message to {link}.\n"
-                    text += "Nothing is logged except the fact of error and date\n"
+                    text = "#ERROR\n"
+                    text += "**Sorry, I encountered a error!**\n"
+                    text += "I won't log anything except the fact of error and date\n"
 
                     ftext = "========== DISCLAIMER =========="
                     ftext += "\nThis file uploaded ONLY here,"
@@ -134,7 +132,7 @@ def register(**args):
 
                     ftext += result
 
-                    file = open("error.log", "w+")
+                    file = open("ubotx_error.log", "w+")
                     file.write(ftext)
                     file.close()
 
@@ -145,9 +143,9 @@ def register(**args):
                         )
 
                         await check.client.send_file(send_to,
-                                                     "error.log",
+                                                     "ubotx_error.log",
                                                      caption=text)
-                        remove("error.log")
+                        remove("ubotx_error.log")
             else:
                 pass
 

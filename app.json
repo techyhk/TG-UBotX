@@ -1,6 +1,7 @@
 {
-  "name": "Project Bish UserBot",
-  "description": "[projectbish] A modular Telegram userbot running on Python 3.8",
+  "name": "Telegram UserBot X",
+  "description": "[TG-UBotX] A modular Telegram userbot running on Python 3.8",
+  "logo": "https://camo.githubusercontent.com/c9497896ad221daba6cb84f897e7ec00ba46f430/68747470733a2f2f74656c656772612e70682f66696c652f3733636634633632623263363466393831393631652e706e67",
   "keywords": [
     "telegram",
     "userbot",
@@ -8,8 +9,9 @@
     "modular",
     "productivity"
   ],
-  "repository": "https://github.com/adekmaulana/ProjectBish",
-  "website": "https://telegra.ph/How-to-host-a-Telegram-Userbot-11-02",
+  "repository": "https://github.com/HitaloSama/TG-UBotX",
+  "website": "https://github.com/HitaloSama/TG-UBotX",
+  "success_url": "#TODO",
   "stack": "container",
   "env": {
     "API_KEY": {
@@ -33,6 +35,14 @@
       "description": "Add the Heroku app name here. It helps with userbot updates.",
       "value": "",
       "required": true
+    },
+    "GITHUB_PASSWORD": {
+      "description": "Required for github module",
+      "required": false
+    },
+    "GITHUB_USERNAME": {
+      "description": "Required for github module",
+      "required": false
     },
     "UPSTREAM_REPO_URL": {
       "description": "In case you maintain a fork, add your repo URL here.",
@@ -136,6 +146,10 @@
     },
     "G_DRIVE_DATA": {
       "description": "Your client_secret.json.",
+      "required": false
+    },
+    "SPAMWATCH_API_KEY": {
+      "description": "Set the SpamWatch KEY API to be used in spamscan, spamscore, and user_info",
       "required": false
     },
     "GENIUS_ACCESS_TOKEN": {
