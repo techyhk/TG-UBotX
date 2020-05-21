@@ -7,10 +7,10 @@
     Information Superhighway (yes, Internet). """
 
 from datetime import datetime
-
-from ..help import add_help_item
 from speedtest import Speedtest
 from telethon import functions
+
+from ..help import add_help_item
 from userbot.events import register
 
 

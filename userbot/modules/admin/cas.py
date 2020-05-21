@@ -15,7 +15,7 @@ from telethon.errors.rpcerrorlist import MessageTooLongError
 from telethon.tl.types import User
 
 from ..help import add_help_item
-from userbot import BOTLOG_CHATID, TEMP_DOWNLOAD_DIRECTORY
+from userbot import TEMP_DOWNLOAD_DIRECTORY
 from userbot.events import register
 
 

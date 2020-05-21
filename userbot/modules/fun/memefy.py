@@ -9,7 +9,6 @@ import requests
 import asyncio
 
 from ..help import add_help_item
-from userbot.modules.misc.upload_download import humanbytes
 from userbot import (TEMP_DOWNLOAD_DIRECTORY, bot)
 from userbot.events import register
 

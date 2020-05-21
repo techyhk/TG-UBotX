@@ -10,7 +10,6 @@ import math
 
 from ..help import add_help_item
 from userbot import (
-    CMD_HELP,
     HEROKU_APP_NAME,
     HEROKU_API_KEY,
     BOTLOG,
@@ -203,15 +202,15 @@ add_help_item(
     """
     `.usage`
     **Usage:** Check your heroku dyno hours remaining.
-    
+
     `.set var <NEW VAR> <VALUE>`
     **Usage:** Add new variable or update existing value variable
     !!! WARNING !!!, after setting a variable the bot will restarted
-    
+
     `.get var or .get var <VAR>`
     **Usage:** get your existing varibles, use it only on your private group!
     This returns all of your private information, please be caution...
-    
+
     `.del var <VAR>`
     **Usage:** delete existing variable.
     !!! WARNING !!!, after deleting variable the bot will restarted

@@ -9,7 +9,7 @@ from asyncio import sleep
 from ..help import add_help_item
 from userbot import BOTLOG, BOTLOG_CHATID, bot
 from userbot.events import register
-from userbot.modules.admin import get_user_from_event
+from userbot.modules.admin.admin import get_user_from_event
 
 
 @register(outgoing=True, pattern="^\.userid$")

@@ -50,7 +50,7 @@ from userbot import (
 from userbot.events import register
 from userbot.utils import progress, humanbytes, time_formatter, human_to_bytes
 from userbot.utils.exceptions import CancelProcess
-from userbot.modules.aria import aria2, check_metadata
+from userbot.modules.misc.aria import aria2, check_metadata
 # =========================================================== #
 #                          STATIC                             #
 # =========================================================== #

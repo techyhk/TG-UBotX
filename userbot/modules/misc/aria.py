@@ -8,13 +8,13 @@ import aria2p
 import math
 
 from asyncio import sleep
+from requests import get
 from subprocess import PIPE, Popen
 
 from ..help import add_help_item
 from userbot import LOGS, TEMP_DOWNLOAD_DIRECTORY
 from userbot.events import register
 from userbot.utils import humanbytes
-from requests import get
 
 
 def subprocess_run(cmd):
