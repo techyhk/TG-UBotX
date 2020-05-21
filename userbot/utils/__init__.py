@@ -17,10 +17,6 @@
 from re import findall, match
 from typing import List
 
-from .chrome import chrome, options
-from .google_images_download import googleimagesdownload
-from .progress import progress
-
 from telethon.events import NewMessage
 from telethon.tl.custom import Message
 from telethon.tl.functions.channels import GetFullChannelRequest
@@ -30,7 +26,6 @@ from telethon.tl.types import (
     MessageEntityMentionName,
     ChannelParticipantsAdmins,
     ChannelParticipantsBots,
-    MessageEntityMention,
     InputPeerChannel,
     InputPeerChat)
 
@@ -112,7 +107,7 @@ async def get_user_from_event(event: NewMessage.Event, **kwargs):
             user_object = await event.client.get_entity(user)
             replied_user = await event.client(
                 GetFullUserRequest(user_object.id))
-        except (TypeError, ValueError) as err:
+        except (TypeError, ValueError):
             return None
 
     # Check for a forwarded message
@@ -137,7 +132,6 @@ async def get_user_from_event(event: NewMessage.Event, **kwargs):
 
 
 async def get_chat_from_event(event: NewMessage.Event, **kwargs):
-    reply_msg: Message = await event.get_reply_message()
     chat = kwargs.get('chat', None)
 
     if chat:
@@ -187,11 +181,3 @@ def user_full_name(user):
     names = [i for i in list(names) if i]
     full_name = ' '.join(names)
     return full_name
-
-
-from .tools import (
-    humanbytes,
-    time_formatter,
-    human_to_bytes,
-    md5
-)

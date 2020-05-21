@@ -226,10 +226,10 @@ add_help_item(
     """
     `.lastfm`
     **Usage:** Shows currently scrobbling track or most recent scrobbles if nothing is playing.
-    
+
     `.lastbio <on/off>`
     **Usage:** Enables/Disables last.fm current playing to bio.
-    
+
     `.lastlog <on/off>`
     **Usage:** Enable/Disable last.fm bio logging in the bot-log group.
     """

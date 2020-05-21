@@ -12,6 +12,7 @@ import requests
 
 from telethon.tl.types import MessageMediaPhoto
 
+from ..help import add_help_item
 from userbot.events import register
 from userbot import REM_BG_API_KEY, TEMP_DOWNLOAD_DIRECTORY
 

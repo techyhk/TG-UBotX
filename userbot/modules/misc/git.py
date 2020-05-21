@@ -16,7 +16,6 @@ from userbot.events import register
 @register(pattern=r"^\.git (.*)", outgoing=True)
 async def github(event):
     URL = f"https://api.github.com/users/{event.pattern_match.group(1)}"
-    chat = await event.get_chat()
     async with aiohttp.ClientSession() as session:
         async with session.get(URL) as request:
             if request.status == 404:

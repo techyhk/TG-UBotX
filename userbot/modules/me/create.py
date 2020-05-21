@@ -6,7 +6,7 @@
 # This module originally created by @spechide
 # https://github.com/SpEcHiDe/UniBorg/blob/master/stdplugins/create_private_group.py
 
-from telethon.tl import functions, types
+from telethon.tl import functions
 
 from ..help import add_help_item
 from userbot.events import register
